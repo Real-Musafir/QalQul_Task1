@@ -1,8 +1,8 @@
 import React from 'react';
 import useFetchUser from '../customHooks/useFetchUser';
 
-const UserDetails = ({ userId }) => {
-  const { user, loading, error } = useFetchUser(userId);
+const UserDetails = ({ userId, refresh }) => {
+  const { user, loading, error } = useFetchUser(userId, refresh);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -19,6 +19,7 @@ const UserDetails = ({ userId }) => {
   return (
     <div>
       <h1>User Details</h1>
+      <button onClick={refresh}>Refresh</button>
       <p><strong>Name:</strong> {user.name}</p>
       <p><strong>Username:</strong> {user.username}</p>
       <p><strong>Email:</strong> {user.email}</p>

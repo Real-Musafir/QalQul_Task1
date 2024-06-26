@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 const cache = {};
 
-const useFetchUser = (userId) => {
+const useFetchUser = (userId, refresh) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,7 +12,7 @@ const useFetchUser = (userId) => {
       setLoading(true);
       setError(null);
 
-      if (cache[userId]) {
+      if (!refresh && cache[userId]) {
         setUser(cache[userId]);
         setLoading(false);
         return;
@@ -37,7 +37,7 @@ const useFetchUser = (userId) => {
     if (userId) {
       fetchUser();
     }
-  }, [userId]);
+  }, [userId, refresh]);
 
   return { user, loading, error };
 };
