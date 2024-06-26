@@ -1,4 +1,3 @@
-// useFetchUser.js
 import { useState, useEffect } from 'react';
 
 const useFetchUser = (userId) => {

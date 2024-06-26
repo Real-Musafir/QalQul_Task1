@@ -1,4 +1,3 @@
-// UserDetails.js
 import React from 'react';
 import useFetchUser from '../customHooks/useFetchUser';
 
@@ -11,6 +10,10 @@ const UserDetails = ({ userId }) => {
 
   if (error) {
     return <div>Error: {error}</div>;
+  }
+
+  if (!user) {
+    return <div>No user data found.</div>;
   }
 
   return (
