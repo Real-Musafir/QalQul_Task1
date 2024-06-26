@@ -1,5 +1,5 @@
+// useFetchUser.js
 import { useState, useEffect } from 'react';
-import { userData } from '../userData';
 
 const useFetchUser = (userId) => {
   const [user, setUser] = useState(null);
@@ -7,23 +7,28 @@ const useFetchUser = (userId) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchUser = () => {
+    const fetchUser = async () => {
       setLoading(true);
       setError(null);
-      
-      const user = userData.find(user => user.id === userId);
-      
-      if (!user) {
-        setError('User not found');
+
+      try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
+        if (!response.ok) {
+          throw new Error('User not found');
+        }
+        const data = await response.json();
+        setUser(data);
+      } catch (error) {
+        setError(error.message);
         setUser(null);
-      } else {
-        setUser(user);
+      } finally {
+        setLoading(false);
       }
-      
-      setLoading(false);
     };
 
-    fetchUser();
+    if (userId) {
+      fetchUser();
+    }
   }, [userId]);
 
   return { user, loading, error };
