@@ -1,23 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
+import UserDetails from './component/UserDetails';
+import { useState } from 'react';
 
 function App() {
+  const [userId, setUserId] = useState(1);
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    // Update userId state directly with input value
+    setUserId(value);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <h1>Advanced React Component with Custom Hook</h1>
+      <input 
+        type="text" 
+        value={userId} 
+        onChange={handleInputChange} 
+        placeholder="Enter user ID" 
+      />
+      {userId && !isNaN(userId) && <UserDetails userId={Number(userId)} />}
     </div>
   );
 }
